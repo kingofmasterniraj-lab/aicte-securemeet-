@@ -1,300 +1,713 @@
 <!doctype html>
 <html lang="en">
- <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260811-05-f555caa","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/7949ff62d67710d5.telemetry_sdk.js" integrity="sha512-KIvXA82Di44YY/RH9/63A9MuTuavYgDFG8PfErJn7Wli4K0LAOk+coo/aPXk3+ZNL96nHh9VYD4PE+fLes+laQ=="></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AICTE Meeting Portal</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/0e8d3a91e1c6f495.data_sdk.js" integrity="sha512-c00oDoGjsMgluCLLEyVl3suwEkgjOGGplVFbsilUoBg4aMKNmsL3mwsc9r0dPn95qiSZyjBousQXgROkAW7p/w=="></script>
-  <script src="/_sdk/1a0e63f7a958ec3e.editing_sdk.js" integrity="sha512-lW+iibZ5vXaBl3IQ1K3ooQE1gfdDZxiO+Y7NpWdeypLOwr1WIYo3edm3nu+wyePemyM75tcU3yV7YyImK9wxMQ=="></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet">
-  <style>
-    :root { --ink:#10233f; --blue:#075bcb; --navy:#071a35; }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:"DM Sans",sans-serif; color:var(--ink); }
-    button,input,textarea { font:inherit; }
-    button:focus-visible,input:focus-visible,textarea:focus-visible { outline:3px solid #72b7ff; outline-offset:3px; }
-    .app-shell { width:100%; min-height:calc(100 * min(var(--vh, 1vh), 1vh)); }
-    .hidden { display:none!important; }
-    .access-view { min-height:calc(100 * min(var(--vh, 1vh), 1vh)); position:relative; overflow:hidden; }
-    .access-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-    .access-overlay { position:absolute; inset:0; background:linear-gradient(115deg,rgba(5,24,56,.97),rgba(7,91,203,.72)); }
-    .role-card { transition:transform .2s ease,box-shadow .2s ease; }
-    .role-card:hover { transform:translateY(-5px); box-shadow:0 22px 45px rgba(2,24,58,.25); }
-    .reveal { animation:rise .55s ease both; }
-    .reveal-delay { animation:rise .65s .12s ease both; }
-    @keyframes rise { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-    .meeting-card { border-left:4px solid #0d75e8; }
-    .meeting-card[data-status="Live"] { border-left-color:#159b67; }
-    .meeting-card[data-status="Completed"] { border-left-color:#8a9ab1; }
-    .modal-backdrop { background:rgba(3,12,28,.88); backdrop-filter:blur(12px); }
-    .room-stage { min-height:calc(100 * min(var(--vh, 1vh), 1vh)); background:#071427; }
-    .tile { position:relative; overflow:hidden; border-radius:18px; background:#142846; min-height:150px; }
-    .tile img,.tile video { width:100%; height:100%; object-fit:cover; }
-    .tile-name { position:absolute; left:12px; bottom:12px; color:#fff; background:rgba(3,12,28,.68); border-radius:8px; padding:5px 9px; font-size:13px; font-weight:700; }
-    .local-pill { position:absolute; right:12px; top:12px; border-radius:999px; background:#d9ecff; color:#075bcb; padding:4px 8px; font-size:11px; font-weight:700; }
-    .camera-off { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 30%,#28598d,#09182e 70%); color:#fff; }
-    .gallery-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-    .gallery-grid .tile { aspect-ratio:16/10; }
-    .speaker-layout .remote-tile { display:none; }
-    .speaker-layout .local-tile { aspect-ratio:16/8; max-width:900px; margin:auto; }
-    .toolbar-button { width:48px; height:48px; border-radius:16px; display:inline-flex; align-items:center; justify-content:center; transition:transform .15s ease,background .15s ease; }
-    .toolbar-button:hover { transform:translateY(-2px); }
-    .panel-enter { animation:slidein .2s ease both; }
-    @keyframes slidein { from {opacity:0;transform:translateX(14px)} to {opacity:1;transform:translateX(0)} }
-    .reaction-pop { animation:pop .8s ease both; }
-    @keyframes pop { 0%{opacity:0;transform:translate(-50%,20px) scale(.4)} 25%{opacity:1;transform:translate(-50%,0) scale(1.15)} 100%{opacity:0;transform:translate(-50%,-45px) scale(1)} }
-    @media (min-width:768px) { .gallery-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
-  </style>
-  <script src="/_sdk/04cc6185e046f597.resizing_sdk.js" type="text/javascript" integrity="sha512-CiE/G92aQF0nxneFg1kdOvXih8sQ1Z2a2QI3+r/WvzJwQqH6+IyB3iL07OkJmpm3ABAaf07+FnqWny98f5sR6w=="></script>
- </head>
- <body data-template-id="__page-root">
-  <div class="app-shell">
-   <main id="access-view" class="access-view"><img data-template-id="login-background" loading="lazy" class="canva-image access-image">
-    <div class="access-overlay"></div>
-    <section class="relative z-10 max-w-6xl mx-auto px-5 py-12 min-h-[calc(100*min(var(--vh,1vh),1vh))] flex flex-col justify-center">
-     <div class="max-w-2xl reveal">
-      <div data-template-id="access-kicker" class="canva-tag inline-flex rounded-full px-3 py-1.5 text-xs font-bold tracking-wider uppercase"></div>
-      <h1 data-template-id="access-title" class="canva-text mt-5 font-bold leading-tight"></h1>
-      <p data-template-id="access-description" class="canva-text mt-5 text-lg leading-relaxed max-w-xl"></p>
-     </div>
-     <section class="mt-10 grid md:grid-cols-2 gap-5 max-w-4xl reveal-delay" aria-label="Choose portal access"><button id="admin-access" data-template-id="admin-access-card" type="button" class="canva-card role-card text-left rounded-2xl p-6 md:p-7 bg-white shadow-xl">
-       <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
-        <i data-lucide="shield-check" width="24" height="24"></i>
-       </div><h2 data-template-id="admin-access-title" class="canva-text mt-5 font-bold"></h2><p data-template-id="admin-access-copy" class="canva-text mt-2 leading-relaxed"></p><span data-template-id="admin-access-action" class="canva-button mt-5 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 font-bold"><i data-lucide="arrow-right" width="17" height="17"></i></span> </button> <button id="practice-access" data-template-id="practice-access-card" type="button" class="canva-card role-card text-left rounded-2xl p-6 md:p-7 bg-white shadow-xl">
-       <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-800 flex items-center justify-center">
-        <i data-lucide="users-round" width="24" height="24"></i>
-       </div><h2 data-template-id="practice-access-title" class="canva-text mt-5 font-bold"></h2><p data-template-id="practice-access-copy" class="canva-text mt-2 leading-relaxed"></p><span data-template-id="practice-access-action" class="canva-button mt-5 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 font-bold"><i data-lucide="arrow-right" width="17" height="17"></i></span> </button>
-     </section>
-     <p data-template-id="access-note" class="canva-text mt-7 text-sm"></p>
-    </section>
-   </main>
-   <div id="portal-view" class="hidden">
-    <header data-template-id="portal-header" class="canva-header bg-white border-b border-slate-200">
-     <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-       <div class="w-11 h-11 rounded-xl bg-blue-700 text-white flex items-center justify-center shadow-lg shadow-blue-200">
-        <i data-lucide="landmark" width="22" height="22"></i>
-       </div>
-       <div>
-        <p data-template-id="institution-label" class="canva-text text-xs tracking-[.16em] uppercase font-bold"></p>
-        <h1 data-template-id="portal-name" class="canva-text font-bold leading-tight"></h1>
-       </div>
-      </div>
-      <div class="flex items-center gap-3"><span id="role-badge" class="rounded-full bg-blue-50 text-blue-800 px-3 py-1.5 text-xs font-bold"></span> <img id="admin-profile-avatar" data-template-id="admin-avatar" loading="lazy" class="canva-image w-10 h-10 rounded-full object-cover ring-2 ring-blue-100"> <img id="user-profile-avatar" data-template-id="user-avatar" loading="lazy" class="canva-image w-10 h-10 rounded-full object-cover ring-2 ring-cyan-100 hidden"> <button id="switch-role" data-template-id="switch-role-button" type="button" class="canva-button rounded-xl px-3 py-2 text-sm font-bold"></button>
-      </div>
-     </div>
-    </header>
-    <main>
-     <section class="relative overflow-hidden bg-slate-950"><img data-template-id="hero-background" loading="lazy" class="canva-image absolute inset-0 w-full h-full object-cover opacity-50">
-      <div class="absolute inset-0 bg-gradient-to-r from-[#081d3c]/95 to-[#082857]/65"></div>
-      <div class="relative max-w-7xl mx-auto px-5 py-12 md:py-16">
-       <p data-template-id="hero-kicker" class="canva-tag inline-flex rounded-full px-3 py-1.5 text-xs font-bold tracking-wider uppercase"></p>
-       <h2 data-template-id="hero-title" class="canva-text mt-5 font-bold leading-tight max-w-2xl"></h2>
-       <p data-template-id="hero-description" class="canva-text mt-5 max-w-2xl text-lg leading-relaxed"></p>
-      </div>
-     </section>
-     <section class="max-w-7xl mx-auto px-5 py-8 md:py-10">
-      <div class="grid xl:grid-cols-[.9fr_1.4fr] gap-7">
-       <aside id="admin-panel" data-template-id="create-panel" class="canva-panel bg-white rounded-2xl border border-slate-200 shadow-sm p-5 md:p-7 h-fit">
-        <div class="flex items-start gap-3 mb-6">
-         <div class="rounded-xl p-2.5 bg-blue-50 text-blue-700">
-          <i data-lucide="calendar-plus" width="21" height="21"></i>
-         </div>
-         <div>
-          <h2 data-template-id="create-title" class="canva-text font-bold"></h2>
-          <p data-template-id="create-help" class="canva-text text-sm mt-1 leading-relaxed"></p>
-         </div>
-        </div>
-        <form id="meeting-form" class="space-y-4">
-         <div>
-          <label data-template-id="meeting-title-label" class="canva-text block text-sm font-semibold mb-1.5" for="meeting-title"></label><input id="meeting-title" required maxlength="100" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" type="text">
-         </div>
-         <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-           <label data-template-id="meeting-date-label" class="canva-text block text-sm font-semibold mb-1.5" for="meeting-date"></label><input id="meeting-date" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" type="date">
-          </div>
-          <div>
-           <label data-template-id="meeting-time-label" class="canva-text block text-sm font-semibold mb-1.5" for="meeting-time"></label><input id="meeting-time" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" type="time">
-          </div>
-         </div>
-         <div>
-          <label data-template-id="meeting-host-label" class="canva-text block text-sm font-semibold mb-1.5" for="meeting-host"></label><input id="meeting-host" required maxlength="80" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" type="text">
-         </div>
-         <div>
-          <label data-template-id="participants-label" class="canva-text block text-sm font-semibold mb-1.5" for="meeting-participants"></label><input id="meeting-participants" maxlength="300" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" type="text">
-         </div>
-         <div>
-          <label data-template-id="description-label" class="canva-text block text-sm font-semibold mb-1.5" for="meeting-description"></label><textarea id="meeting-description" maxlength="500" rows="3" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 resize-y"></textarea>
-         </div><button id="create-button" data-template-id="create-button" class="canva-button w-full rounded-xl px-4 py-3 font-bold" type="submit"></button>
-         <p id="form-message" class="text-sm min-h-5" aria-live="polite"></p>
-        </form>
-       </aside>
-       <section aria-labelledby="schedule-heading">
-        <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
-         <div>
-          <p data-template-id="schedule-eyebrow" class="canva-text text-xs font-bold uppercase tracking-[.14em]"></p>
-          <h2 id="schedule-heading" data-template-id="schedule-title" class="canva-text mt-1 font-bold"></h2>
-         </div>
-         <div id="meeting-count" class="rounded-full bg-blue-50 text-blue-800 text-sm px-3 py-1.5 font-semibold" aria-live="polite">
-          0 meetings
-         </div>
-        </div>
-        <div id="meeting-list" class="space-y-4">
-         <div id="empty-state" data-template-id="empty-state" class="canva-banner rounded-2xl p-8 text-center border border-dashed border-blue-200"></div>
-        </div>
-       </section>
-      </div>
-     </section>
-    </main>
-    <footer data-template-id="portal-footer" class="canva-footer border-t border-slate-200 bg-white">
-     <div class="max-w-7xl mx-auto px-5 py-5 flex flex-wrap justify-between gap-2 text-sm">
-      <p data-template-id="footer-note" class="canva-text"></p>
-      <p data-template-id="footer-support" class="canva-text"></p>
-     </div>
-    </footer>
-   </div>
-  </div>
-  <template id="meeting-card-template">
-   <article data-template-id="meeting-card" class="canva-card meeting-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 md:p-6" data-status="Scheduled">
-    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-     <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-2">
-       <span data-template-id="meeting-status" class="canva-tag inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold"></span><span class="text-xs text-slate-400" data-role="participant-count"></span>
-      </div>
-      <h3 class="font-bold text-xl text-slate-900" data-role="title"></h3>
-      <p class="mt-2 text-sm text-slate-500" data-role="details"></p>
-     </div><button data-template-id="join-button" class="canva-button rounded-xl px-4 py-2.5 font-bold shrink-0" type="button" data-action="join"></button>
-    </div>
-    <p class="mt-4 text-sm leading-relaxed text-slate-600" data-role="description"></p>
-    <div data-role="admin-actions" class="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-     <button data-template-id="status-button" class="canva-button text-sm font-semibold rounded-lg px-2 py-1 hover:bg-slate-100" type="button" data-action="status"></button>
-     <div class="flex items-center gap-2">
-      <button data-template-id="remove-button" class="canva-button text-sm font-semibold rounded-lg px-2 py-1" type="button" data-action="remove"></button>
-      <div class="hidden items-center gap-2" data-role="delete-confirm">
-       <span data-template-id="delete-question" class="canva-text text-sm font-semibold"></span><button data-template-id="delete-yes" class="canva-button text-xs rounded-lg px-2 py-1.5 font-bold" type="button" data-action="confirm-delete"></button><button data-template-id="delete-no" class="canva-button text-xs rounded-lg px-2 py-1.5 font-bold" type="button" data-action="cancel-delete"></button>
-      </div>
-     </div>
-    </div>
-    <p class="mt-2 text-sm hidden" data-role="card-message" aria-live="polite"></p>
-   </article>
-  </template>
-  <div id="meeting-modal" class="hidden fixed inset-0 z-50 modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="room-title">
-   <section class="room-stage w-full flex flex-col text-white">
-    <header class="flex items-center justify-between gap-4 px-4 sm:px-6 py-4 border-b border-white/10">
-     <div class="min-w-0">
-      <p data-template-id="room-kicker" class="canva-text text-xs font-bold uppercase tracking-[.14em]"></p>
-      <h2 id="room-title" class="font-bold text-lg sm:text-xl truncate" data-role="room-title"></h2>
-     </div>
-     <div class="flex items-center gap-3">
-      <span data-template-id="preview-badge" class="canva-tag hidden sm:inline-flex rounded-full px-3 py-1 text-xs font-bold"></span><button id="leave-button" data-template-id="leave-button" class="canva-button rounded-xl px-3 py-2 font-bold" type="button"></button>
-     </div>
-    </header>
-    <div class="grow min-h-0 flex overflow-hidden">
-     <main class="grow min-w-0 p-3 sm:p-5 flex flex-col">
-      <div id="reaction-display" class="hidden fixed left-1/2 top-1/2 z-[60] text-6xl pointer-events-none"></div>
-      <div id="video-grid" class="gallery-grid grow content-center max-w-6xl w-full mx-auto">
-       <article class="tile local-tile">
-        <video id="local-video" class="hidden" autoplay muted playsinline></video>
-        <div id="camera-off-state" class="camera-off">
-         <div class="text-center">
-          <i data-lucide="video-off" width="28" height="28" class="mx-auto mb-2"></i>
-          <p data-template-id="camera-off-label" class="canva-text font-semibold"></p>
-         </div>
-        </div><span data-template-id="local-name" class="canva-text tile-name"></span><span data-template-id="local-preview-label" class="canva-tag local-pill"></span>
-       </article>
-       <article class="tile remote-tile">
-        <img data-template-id="participant-image-1" loading="lazy" class="canva-image"><span data-template-id="participant-name-1" class="canva-text tile-name"></span>
-       </article>
-       <article class="tile remote-tile">
-        <img data-template-id="participant-image-2" loading="lazy" class="canva-image"><span data-template-id="participant-name-2" class="canva-text tile-name"></span>
-       </article>
-       <article class="tile remote-tile">
-        <img data-template-id="participant-image-3" loading="lazy" class="canva-image"><span data-template-id="participant-name-3" class="canva-text tile-name"></span>
-       </article>
-       <article class="tile remote-tile">
-        <img data-template-id="participant-image-4" loading="lazy" class="canva-image"><span data-template-id="participant-name-4" class="canva-text tile-name"></span>
-       </article>
-      </div>
-      <p id="media-message" class="text-center text-xs text-slate-300 mt-3 min-h-4" aria-live="polite"></p>
-     </main>
-     <aside id="side-panel" class="hidden panel-enter w-full sm:w-[330px] shrink-0 bg-white text-[#10233f] border-l border-slate-200 flex flex-col">
-      <div class="flex items-center justify-between p-5 border-b border-slate-200">
-       <h3 id="side-title" class="font-bold text-lg"></h3><button id="close-panel" class="p-2 rounded-lg hover:bg-slate-100" type="button" aria-label="Close panel"><i data-lucide="x" width="20" height="20"></i></button>
-      </div>
-      <div id="participants-content" class="hidden p-5 space-y-3 overflow-y-auto">
-       <p data-template-id="participants-panel-help" class="canva-text text-sm"></p>
-       <div class="flex items-center gap-3 p-2 rounded-xl bg-blue-50">
-        <img data-template-id="admin-avatar-small" loading="lazy" class="canva-image w-9 h-9 rounded-full object-cover"><span data-template-id="participant-list-name-1" class="canva-text font-semibold text-sm"></span>
-       </div>
-       <div class="flex items-center gap-3 p-2">
-        <img data-template-id="participant-image-small-1" loading="lazy" class="canva-image w-9 h-9 rounded-full object-cover"><span data-template-id="participant-list-name-2" class="canva-text font-semibold text-sm"></span>
-       </div>
-       <div class="flex items-center gap-3 p-2">
-        <img data-template-id="participant-image-small-2" loading="lazy" class="canva-image w-9 h-9 rounded-full object-cover"><span data-template-id="participant-list-name-3" class="canva-text font-semibold text-sm"></span>
-       </div>
-       <div class="flex items-center gap-3 p-2">
-        <img data-template-id="participant-image-small-3" loading="lazy" class="canva-image w-9 h-9 rounded-full object-cover"><span data-template-id="participant-list-name-4" class="canva-text font-semibold text-sm"></span>
-       </div>
-      </div>
-      <div id="chat-content" class="hidden flex flex-col grow min-h-0">
-       <div id="chat-list" class="p-5 space-y-3 grow overflow-y-auto">
-        <div data-template-id="chat-welcome" class="canva-banner rounded-xl p-3 text-sm"></div>
-       </div>
-       <form id="chat-form" class="p-4 border-t border-slate-200 flex gap-2">
-        <label class="sr-only" for="chat-input">Message</label><input id="chat-input" data-template-id="chat-input" class="canva-input min-w-0 grow rounded-xl border border-slate-300 px-3 py-2" type="text" maxlength="250"><button data-template-id="send-button" class="canva-button rounded-xl px-3" type="submit" aria-label="Send message"><i data-lucide="send" width="17" height="17"></i></button>
-       </form>
-      </div>
-     </aside>
-    </div>
-    <footer class="px-4 py-4 flex justify-center border-t border-white/10">
-     <div class="flex flex-wrap justify-center gap-2"><button id="mic-toggle" data-template-id="mic-toggle" class="canva-button toolbar-button" type="button" aria-label="Toggle microphone"><i data-lucide="mic" width="20" height="20"></i></button> <button id="camera-toggle" data-template-id="camera-toggle" class="canva-button toolbar-button" type="button" aria-label="Toggle camera"><i data-lucide="video" width="20" height="20"></i></button> <button id="reaction-toggle" data-template-id="reaction-toggle" class="canva-button toolbar-button" type="button" aria-label="Send reaction"><i data-lucide="smile-plus" width="20" height="20"></i></button> <button id="layout-toggle" data-template-id="layout-toggle" class="canva-button toolbar-button" type="button" aria-label="Toggle layout"><i data-lucide="layout-grid" width="20" height="20"></i></button> <button id="participants-toggle" data-template-id="participants-toggle" class="canva-button toolbar-button" type="button" aria-label="Show participants"><i data-lucide="users" width="20" height="20"></i></button> <button id="chat-toggle" data-template-id="chat-toggle" class="canva-button toolbar-button" type="button" aria-label="Show chat"><i data-lucide="message-circle" width="20" height="20"></i></button>
-     </div>
-    </footer>
-   </section>
-  </div>
-  <script>
-    let meetings=[], activeRole="admin", mediaStream=null, activePanel="";
-    const list=document.getElementById("meeting-list");
-    const setMessage=(el,text,bad)=>{el.textContent=text;el.className="text-sm min-h-5 "+(bad?"text-red-600":"text-emerald-700")};
-    const readableDate=v=>v?new Date(v+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}):"Date to be confirmed";
-    const participantText=raw=>{const n=(raw||"").split(",").filter(v=>v.trim()).length;return n?n+(n===1?" participant":" participants"):"Open attendance"};
-    const statusStyle=s=>s==="Live"?"background:#dcfce7;color:#157347":s==="Completed"?"background:#eef2f7;color:#52647d":"background:#e8f2ff;color:#075bcb";
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AICTE SecureMeet</title>
+<script src="/socket.io/socket.io.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#07111f;color:#fff}
+button,input{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:11px 15px;font-weight:700}
+input{width:100%;padding:12px;border:1px solid #334155;border-radius:9px;background:#0b1728;color:#fff}
+.hidden{display:none!important}
+.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(145deg,#0b2a55,#020617)}
+.card{width:min(440px,100%);background:#0d1929;border:1px solid #26384f;border-radius:18px;padding:26px;box-shadow:0 20px 60px #0008}
+.tabs{display:flex;gap:8px;margin:18px 0}.tabs button{flex:1;background:#1e293b;color:#fff}.tabs .on{background:#2563eb}
+label{display:block;margin:14px 0;font-size:14px}label input{margin-top:6px}
+.primary{background:#2563eb;color:#fff}.green{background:#16a34a;color:#fff}.red{background:#dc2626;color:#fff}.gray{background:#334155;color:#fff}.full{width:100%}
+.top{height:62px;background:#020617;border-bottom:1px solid #243247;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.main{max-width:1150px;margin:auto;padding:20px}.grid{display:grid;grid-template-columns:2fr 1fr;gap:15px}.panel{background:#fff;color:#0f172a;border-radius:15px;padding:18px}
+.row{display:flex;gap:8px}.row input{flex:1}.meeting{margin-top:10px;padding:12px;border:1px solid #d5deea;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}.live{color:#15803d;font-weight:bold;font-size:12px}
+.room{height:100vh;height:100dvh;display:flex;flex-direction:column;background:#020617}.roomtop{padding:9px 13px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #243247;gap:8px}
+.roommain{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 320px}.videos{overflow:auto;padding:9px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px;align-content:start}
+.tile{position:relative;min-height:180px;background:#111827;border:1px solid #263449;border-radius:12px;overflow:hidden;aspect-ratio:16/10}.tile video{width:100%;height:100%;object-fit:cover;background:#111827}
+.name{position:absolute;left:8px;bottom:8px;background:#000b;padding:5px 8px;border-radius:6px;font-size:12px}.state{position:absolute;right:8px;top:8px;background:#000b;padding:5px 7px;border-radius:6px;font-size:11px}
+.chat{display:flex;flex-direction:column;min-height:0;background:#0b1422;border-left:1px solid #243247}.chat h3{padding:12px;margin:0;border-bottom:1px solid #243247}.msgs{flex:1;overflow:auto;padding:10px}.msg{background:#172235;padding:8px;border-radius:8px;margin-bottom:7px}.msg b{font-size:12px;color:#60a5fa}.msg div{font-size:13px;margin-top:3px;word-break:break-word}
+.chatform{display:flex;gap:6px;padding:8px}.chatform input{min-width:0}.controls{height:76px;display:flex;justify-content:center;align-items:center;gap:9px;border-top:1px solid #243247}.ctrl{width:48px;height:48px;border-radius:50%;padding:0;background:#334155;color:#fff;font-size:18px}.ctrl.off{background:#dc2626}.mobilechat{display:none}
+.status{font-size:12px;color:#94a3b8;margin-top:8px;min-height:16px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.roommain{grid-template-columns:1fr}.chat{display:none}.chat.open{display:flex;position:fixed;z-index:10;top:62px;right:0;bottom:76px;width:min(350px,92vw);box-shadow:-20px 0 40px #0008}.mobilechat{display:inline-block}.videos{grid-template-columns:repeat(2,minmax(0,1fr));padding:6px;gap:6px}.tile{min-height:125px}.row{flex-direction:column}}
+@media(max-width:430px){.videos{grid-template-columns:1fr}.tile{min-height:190px}}
+</style>
+</head>
+<body>
 
-    function openRole(role){activeRole=role;document.getElementById("access-view").classList.add("hidden");document.getElementById("portal-view").classList.remove("hidden");document.getElementById("admin-panel").classList.toggle("hidden",role!=="admin");document.getElementById("role-badge").textContent=role==="admin"?"Administrator workspace":"Participant workspace";document.getElementById("admin-profile-avatar").classList.toggle("hidden",role!=="admin");document.getElementById("user-profile-avatar").classList.toggle("hidden",role==="admin");renderMeetings(meetings)}
-    function createCard(m){
-      const fragment=document.getElementById("meeting-card-template").content.cloneNode(true),card=fragment.querySelector("[data-template-id='meeting-card']");
-      card.dataset.status=m.meeting_status||"Scheduled";card.querySelector("[data-role='title']").textContent=m.meeting_title;card.querySelector("[data-role='details']").textContent=readableDate(m.meeting_date)+" · "+m.meeting_time+" · "+m.meeting_host;card.querySelector("[data-role='description']").textContent=m.meeting_description||"No agenda has been added yet.";card.querySelector("[data-role='participant-count']").textContent=participantText(m.meeting_participants);
-      const badge=card.querySelector("[data-template-id='meeting-status']");badge.textContent=m.meeting_status||"Scheduled";badge.style.cssText=statusStyle(m.meeting_status||"Scheduled");
-      card.querySelector("[data-role='admin-actions']").classList.toggle("hidden",activeRole!=="admin");
-      card.querySelector("[data-action='join']").onclick=()=>openMeeting(m);card.querySelector("[data-action='status']").onclick=()=>cycleStatus(m,card);
-      card.querySelector("[data-action='remove']").onclick=()=>{card.querySelector("[data-action='remove']").classList.add("hidden");const c=card.querySelector("[data-role='delete-confirm']");c.classList.remove("hidden");c.classList.add("flex")};
-      card.querySelector("[data-action='cancel-delete']").onclick=()=>{card.querySelector("[data-action='remove']").classList.remove("hidden");card.querySelector("[data-role='delete-confirm']").classList.add("hidden")};
-      card.querySelector("[data-action='confirm-delete']").onclick=()=>deleteMeeting(m,card);return card;
+<section id="auth" class="auth">
+<div class="card">
+<h1>🛡️ AICTE SecureMeet</h1>
+<p style="color:#9fb0c5">Secure real-time meeting demo</p>
+<div class="tabs">
+<button id="adminTab" class="on">Admin</button>
+<button id="participantTab">Participant</button>
+</div>
+
+<div id="adminForm">
+<label>Name<input id="adminName" value="AICTE Administrator"></label>
+<label>Email<input id="adminEmail" type="email" value="admin@aicte-securemeet.demo"></label>
+<label>Password<input id="adminPassword" type="password" value="DemoPass123!"></label>
+<button id="adminLogin" class="primary full">Login as Admin</button>
+</div>
+
+<div id="participantForm" class="hidden">
+<label>Name<input id="participantName" placeholder="Your name"></label>
+<label>Email<input id="participantEmail" type="email" placeholder="your@email.com"></label>
+<button id="participantLogin" class="primary full">Continue as Participant</button>
+</div>
+</div>
+</section>
+
+<section id="dashboard" class="hidden">
+<header class="top">
+<b>🛡️ AICTE SecureMeet</b>
+<span><span id="who"></span> <button id="logout" class="gray">Logout</button></span>
+</header>
+<main class="main">
+<h2 id="welcome"></h2>
+<div class="grid">
+<section class="panel">
+<h3>🎥 Meetings</h3>
+<div id="createBox">
+<div class="row">
+<input id="meetingTitle" value="AICTE Secure Meeting">
+<button id="createMeeting" class="primary">Start Meeting</button>
+</div>
+</div>
+<h4>Join by Meeting ID</h4>
+<div class="row">
+<input id="meetingIdInput" placeholder="Meeting ID">
+<button id="joinMeeting" class="green">Join</button>
+</div>
+<div id="meetingList"></div>
+<div id="dashStatus" class="status"></div>
+</section>
+<section class="panel">
+<h3>🔐 Security</h3>
+<p>WebRTC camera/microphone.</p>
+<p>Live Socket.IO signaling and chat.</p>
+<p>Demo application — do not use real confidential data.</p>
+</section>
+</div>
+</main>
+</section>
+
+<section id="room" class="room hidden">
+<header class="roomtop">
+<div>
+<b id="roomTitle">AICTE SecureMeet</b>
+<small id="roomId" style="display:block;color:#94a3b8"></small>
+</div>
+<div>
+<button id="copyLink" class="gray">🔗 Copy</button>
+<button id="mobileChat" class="gray mobilechat">💬</button>
+<button id="endMeeting" class="red hidden">End</button>
+<button id="leaveMeeting" class="red">Leave</button>
+</div>
+</header>
+
+<div class="roommain">
+<div id="videos" class="videos"></div>
+<aside id="chat" class="chat">
+<h3>💬 Chat</h3>
+<div id="messages" class="msgs"></div>
+<form id="chatForm" class="chatform">
+<input id="chatInput" maxlength="1000" placeholder="Message...">
+<button class="primary">Send</button>
+</form>
+</aside>
+</div>
+
+<footer class="controls">
+<button id="mic" class="ctrl">🎙️</button>
+<button id="camera" class="ctrl">📷</button>
+<button id="share" class="ctrl">🖥️</button>
+</footer>
+</section>
+
+<script>
+"use strict";
+
+const socket = io({
+  transports: ["websocket","polling"],
+  reconnection: true,
+  reconnectionAttempts: Infinity,
+  timeout: 10000
+});
+
+let user = null;
+let meeting = null;
+let localStream = null;
+let joining = false;
+
+const peers = new Map();
+const names = new Map();
+const pendingIce = new Map();
+
+const $ = id => document.getElementById(id);
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+}[c]));
+
+function show(id){
+  ["auth","dashboard","room"].forEach(x => $(x).classList.add("hidden"));
+  $(id).classList.remove("hidden");
+}
+
+function setStatus(text){
+  if($("dashStatus")) $("dashStatus").textContent = text || "";
+}
+
+socket.on("connect", () => {
+  if(user && !meeting) refresh();
+});
+
+socket.on("connect_error", err => {
+  console.error("Socket connection error:", err);
+  setStatus("Server connection problem. Retrying…");
+});
+
+$("adminTab").onclick = () => {
+  $("adminTab").classList.add("on");
+  $("participantTab").classList.remove("on");
+  $("adminForm").classList.remove("hidden");
+  $("participantForm").classList.add("hidden");
+};
+
+$("participantTab").onclick = () => {
+  $("participantTab").classList.add("on");
+  $("adminTab").classList.remove("on");
+  $("participantForm").classList.remove("hidden");
+  $("adminForm").classList.add("hidden");
+};
+
+$("adminLogin").onclick = () => {
+  const n = $("adminName").value.trim();
+  const e = $("adminEmail").value.trim();
+  const p = $("adminPassword").value;
+  if(!n || !e || !p) return alert("Fill all fields.");
+  user = {name:n,email:e,role:"Admin"};
+  dashboard();
+};
+
+$("participantLogin").onclick = () => {
+  const n = $("participantName").value.trim();
+  const e = $("participantEmail").value.trim();
+  if(!n || !e) return alert("Enter name and email.");
+  user = {name:n,email:e,role:"Participant"};
+  dashboard();
+};
+
+function dashboard(){
+  show("dashboard");
+  $("welcome").textContent = "Welcome, " + user.name;
+  $("who").textContent = user.role + " · " + user.email;
+  $("createBox").classList.toggle("hidden", user.role !== "Admin");
+  refresh();
+}
+
+function refresh(){
+  if(!socket.connected){
+    setStatus("Connecting to meeting server…");
+    return;
+  }
+  socket.emit("list-meetings", list => {
+    const meetings = Array.isArray(list) ? list : [];
+    $("meetingList").innerHTML = meetings.length
+      ? meetings.map(m => `
+        <div class="meeting">
+          <div>
+            <span class="live">● LIVE</span><br>
+            <b>${esc(m.id)}</b><br>
+            <small>${esc(m.title || "Meeting")} · Host: ${esc(m.hostName || "Admin")} · ${m.participantCount || 0} connected</small>
+          </div>
+          <button class="green" onclick="joinRoom('${esc(m.id)}')">Join</button>
+        </div>`).join("")
+      : "<p>No live meetings.</p>";
+    setStatus("");
+  });
+}
+
+/*
+ * IMPORTANT:
+ * Admin creation does NOT call join-meeting again.
+ * The server has already placed the admin in the new meeting.
+ */
+$("createMeeting").onclick = () => {
+  if(!user || user.role !== "Admin") return;
+
+  const title = $("meetingTitle").value.trim() || "AICTE Secure Meeting";
+  setStatus("Creating meeting…");
+
+  socket.emit("create-meeting", {
+    name: user.name,
+    title
+  }, async r => {
+    if(!r || !r.ok){
+      setStatus("");
+      return alert(r?.error || "Create meeting failed.");
     }
-    function renderMeetings(data){meetings=data.slice().sort((a,b)=>(a.meeting_date+a.meeting_time).localeCompare(b.meeting_date+b.meeting_time));list.querySelectorAll("[data-template-id='meeting-card']").forEach(n=>n.remove());meetings.forEach(m=>list.appendChild(createCard(m)));document.getElementById("empty-state").classList.toggle("hidden",meetings.length>0);document.getElementById("meeting-count").textContent=meetings.length+(meetings.length===1?" meeting":" meetings");lucide.createIcons()}
-    const handler={onDataChanged(data){renderMeetings(data)}};
 
-    document.getElementById("meeting-form").addEventListener("submit",async e=>{e.preventDefault();const message=document.getElementById("form-message"),button=document.getElementById("create-button");if(meetings.length>=999)return setMessage(message,"The 999 meeting limit has been reached.",true);button.disabled=true;setMessage(message,"Saving meeting…",false);const r=await window.dataSdk.create({meeting_title:document.getElementById("meeting-title").value.trim(),meeting_date:document.getElementById("meeting-date").value,meeting_time:document.getElementById("meeting-time").value,meeting_host:document.getElementById("meeting-host").value.trim(),meeting_status:"Scheduled",meeting_description:document.getElementById("meeting-description").value.trim(),meeting_participants:document.getElementById("meeting-participants").value.trim()});button.disabled=false;if(r.isOk){e.target.reset();setMessage(message,"Meeting saved to your Canva Sheet.",false)}else setMessage(message,"Unable to save this meeting.",true)});
-    async function cycleStatus(m,card){const states=["Scheduled","Live","Completed"],next=states[(states.indexOf(m.meeting_status||"Scheduled")+1)%3],r=await window.dataSdk.update({...m,meeting_status:next});if(!r.isOk){const x=card.querySelector("[data-role='card-message']");x.textContent="Could not update meeting status.";x.classList.remove("hidden")}}
-    async function deleteMeeting(m,card){const r=await window.dataSdk.delete(m);if(!r.isOk){const x=card.querySelector("[data-role='card-message']");x.textContent="Could not remove this meeting.";x.classList.remove("hidden")}}
+    meeting = {
+      id: r.meetingId,
+      title: r.title || title,
+      hostSocket: r.hostSocket || socket.id,
+      isHost: true
+    };
 
-    async function openMeeting(m){document.querySelector("[data-role='room-title']").textContent=m.meeting_title;document.getElementById("meeting-modal").classList.remove("hidden");document.getElementById("media-message").textContent="Requesting your local camera and microphone…";try{mediaStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById("local-video").srcObject=mediaStream;document.getElementById("local-video").classList.remove("hidden");document.getElementById("camera-off-state").classList.add("hidden");document.getElementById("media-message").textContent="Your local preview is ready. Attendee tiles are a meeting-room preview."}catch{document.getElementById("media-message").textContent="Camera or microphone access is unavailable. You can still explore this local meeting preview."}}
-    function stopMedia(){if(mediaStream)mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;document.getElementById("local-video").srcObject=null;document.getElementById("local-video").classList.add("hidden");document.getElementById("camera-off-state").classList.remove("hidden")}
-    function showPanel(type){activePanel=type;const panel=document.getElementById("side-panel");panel.classList.remove("hidden");document.getElementById("participants-content").classList.toggle("hidden",type!=="participants");document.getElementById("chat-content").classList.toggle("hidden",type!=="chat");document.getElementById("side-title").textContent=type==="chat"?"Local chat":"Participants";lucide.createIcons()}
-    function closePanel(){activePanel="";document.getElementById("side-panel").classList.add("hidden")}
-    function react(){const el=document.getElementById("reaction-display");el.textContent="👏";el.classList.remove("hidden","reaction-pop");void el.offsetWidth;el.classList.add("reaction-pop");setTimeout(()=>el.classList.add("hidden"),800)}
+    setStatus("");
+    await enterRoom([]);
+  });
+};
 
-    document.getElementById("admin-access").onclick=()=>openRole("admin");document.getElementById("practice-access").onclick=()=>openRole("practice");
-    document.getElementById("switch-role").onclick=()=>{stopMedia();document.getElementById("portal-view").classList.add("hidden");document.getElementById("access-view").classList.remove("hidden")};
-    document.getElementById("leave-button").onclick=()=>{stopMedia();closePanel();document.getElementById("meeting-modal").classList.add("hidden")};
-    document.getElementById("camera-toggle").onclick=()=>{const t=mediaStream?.getVideoTracks()[0];if(t){t.enabled=!t.enabled;document.getElementById("local-video").classList.toggle("hidden",!t.enabled);document.getElementById("camera-off-state").classList.toggle("hidden",t.enabled)}};
-    document.getElementById("mic-toggle").onclick=()=>{const t=mediaStream?.getAudioTracks()[0];if(t){t.enabled=!t.enabled;document.getElementById("media-message").textContent=t.enabled?"Microphone is on.":"Microphone is muted."}};
-    document.getElementById("layout-toggle").onclick=()=>document.getElementById("video-grid").classList.toggle("speaker-layout");
-    document.getElementById("participants-toggle").onclick=()=>showPanel("participants");document.getElementById("chat-toggle").onclick=()=>showPanel("chat");document.getElementById("close-panel").onclick=closePanel;document.getElementById("reaction-toggle").onclick=react;
-    document.getElementById("chat-form").addEventListener("submit",e=>{e.preventDefault();const input=document.getElementById("chat-input"),text=input.value.trim();if(!text)return;const bubble=document.createElement("div");bubble.className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-blue-700 text-white px-3 py-2 text-sm";bubble.textContent=text;document.getElementById("chat-list").appendChild(bubble);input.value="";document.getElementById("chat-list").scrollTop=document.getElementById("chat-list").scrollHeight});
-    document.addEventListener("DOMContentLoaded",async()=>{lucide.createIcons();const r=await window.dataSdk.init(handler);if(!r.isOk)setMessage(document.getElementById("form-message"),"Meeting records could not be loaded.",true)});
-  </script>
- </body>
+$("joinMeeting").onclick = () => {
+  const id = $("meetingIdInput").value.trim().toUpperCase();
+  if(!id) return alert("Enter a Meeting ID.");
+  joinRoom(id);
+};
+
+window.joinRoom = id => {
+  if(joining) return;
+  joining = true;
+  setStatus("Joining meeting…");
+
+  socket.emit("join-meeting", {
+    meetingId: String(id).trim().toUpperCase(),
+    name: user.name
+  }, async r => {
+    joining = false;
+
+    if(!r || !r.ok){
+      setStatus("");
+      return alert(r?.error || "Meeting unavailable.");
+    }
+
+    meeting = {
+      id: r.meetingId,
+      title: r.title || "AICTE Secure Meeting",
+      hostSocket: r.hostSocket,
+      isHost: r.hostSocket === socket.id
+    };
+
+    (r.participants || []).forEach(p => {
+      if(p.socketId !== socket.id) names.set(p.socketId, p.name);
+    });
+
+    setStatus("");
+    await enterRoom(r.participants || []);
+  });
+};
+
+async function enterRoom(participants){
+  show("room");
+
+  $("roomTitle").textContent = meeting.title;
+  $("roomId").textContent = "Meeting ID: " + meeting.id;
+  $("endMeeting").classList.toggle("hidden", !meeting.isHost);
+
+  try{
+    localStream = await navigator.mediaDevices.getUserMedia({
+      video: {facingMode:"user"},
+      audio: {
+        echoCancellation:true,
+        noiseSuppression:true,
+        autoGainControl:true
+      }
+    });
+  }catch(e){
+    console.error("getUserMedia:", e);
+    alert("Camera/microphone permission is required. Allow it and rejoin.");
+    cleanup(false);
+    show("dashboard");
+    refresh();
+    return;
+  }
+
+  addVideo(socket.id, localStream, user.name, true);
+
+  /*
+   * Participant: connect to the host.
+   * Host: connect to every participant already present.
+   */
+  if(meeting.isHost){
+    for(const p of participants){
+      if(p.socketId !== socket.id){
+        names.set(p.socketId, p.name);
+        await makePeer(p.socketId, true);
+      }
+    }
+  }else if(meeting.hostSocket && meeting.hostSocket !== socket.id){
+    await makePeer(meeting.hostSocket, true);
+  }
+}
+
+async function makePeer(id, createOffer){
+  if(!id || !localStream || id === socket.id) return null;
+
+  if(peers.has(id)) return peers.get(id);
+
+  const pc = new RTCPeerConnection({
+    iceServers: [
+      {urls:"stun:stun.l.google.com:19302"},
+      {urls:"stun:stun1.l.google.com:19302"},
+      {urls:"stun:stun2.l.google.com:19302"}
+    ]
+  });
+
+  peers.set(id, pc);
+  pendingIce.set(id, []);
+
+  localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
+
+  pc.onicecandidate = event => {
+    if(event.candidate){
+      socket.emit("ice-candidate", {
+        target:id,
+        candidate:event.candidate
+      });
+    }
+  };
+
+  pc.ontrack = event => {
+    const stream = event.streams && event.streams[0]
+      ? event.streams[0]
+      : null;
+
+    if(stream){
+      addVideo(id, stream, names.get(id) || "Participant", false);
+    }
+  };
+
+  pc.onconnectionstatechange = () => {
+    const state = pc.connectionState;
+    console.log("Peer", id, state);
+
+    if(state === "connected"){
+      updateVideoState(id, "● LIVE");
+    }
+
+    if(["failed","closed"].includes(state)){
+      removePeer(id);
+    }
+  };
+
+  if(createOffer){
+    try{
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+      socket.emit("offer", {
+        target:id,
+        offer:pc.localDescription
+      });
+    }catch(e){
+      console.error("Offer error:", e);
+    }
+  }
+
+  return pc;
+}
+
+socket.on("offer", async d => {
+  if(!meeting || !localStream || !d?.sender || !d?.offer) return;
+
+  try{
+    const pc = await makePeer(d.sender, false);
+    if(!pc) return;
+
+    await pc.setRemoteDescription(d.offer);
+    await flushIce(d.sender);
+
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+
+    socket.emit("answer", {
+      target:d.sender,
+      answer:pc.localDescription
+    });
+  }catch(e){
+    console.error("Offer handling error:", e);
+  }
+});
+
+socket.on("answer", async d => {
+  if(!d?.sender || !d?.answer) return;
+
+  try{
+    const pc = peers.get(d.sender);
+    if(!pc) return;
+
+    await pc.setRemoteDescription(d.answer);
+    await flushIce(d.sender);
+  }catch(e){
+    console.error("Answer handling error:", e);
+  }
+});
+
+socket.on("ice-candidate", async d => {
+  if(!d?.sender || !d?.candidate) return;
+
+  const pc = peers.get(d.sender);
+
+  if(!pc){
+    pendingIce.set(d.sender, pendingIce.get(d.sender) || []);
+    pendingIce.get(d.sender).push(d.candidate);
+    return;
+  }
+
+  if(pc.remoteDescription){
+    try{
+      await pc.addIceCandidate(d.candidate);
+    }catch(e){
+      console.warn("ICE candidate error:", e);
+    }
+  }else{
+    pendingIce.get(d.sender).push(d.candidate);
+  }
+});
+
+async function flushIce(id){
+  const pc = peers.get(id);
+  if(!pc) return;
+
+  const list = pendingIce.get(id) || [];
+
+  for(const candidate of list){
+    try{
+      await pc.addIceCandidate(candidate);
+    }catch(e){
+      console.warn("Queued ICE error:", e);
+    }
+  }
+
+  pendingIce.set(id, []);
+}
+
+function addVideo(id, stream, name, local){
+  let tile = $("video-" + id);
+
+  if(!tile){
+    tile = document.createElement("div");
+    tile.className = "tile";
+    tile.id = "video-" + id;
+
+    const video = document.createElement("video");
+    video.autoplay = true;
+    video.playsInline = true;
+    video.muted = !!local;
+    video.srcObject = stream;
+
+    const label = document.createElement("div");
+    label.className = "name";
+    label.textContent = local ? name + " (You)" : name;
+
+    const state = document.createElement("div");
+    state.className = "state";
+    state.textContent = local ? "● LOCAL" : "● CONNECTING";
+
+    tile.append(video, label, state);
+    $("videos").appendChild(tile);
+  }else{
+    const video = tile.querySelector("video");
+    if(video) video.srcObject = stream;
+  }
+
+  const video = tile.querySelector("video");
+  if(video) video.play().catch(() => {});
+}
+
+function updateVideoState(id,text){
+  const tile = $("video-" + id);
+  if(tile){
+    const state = tile.querySelector(".state");
+    if(state) state.textContent = text;
+  }
+}
+
+function removePeer(id){
+  const pc = peers.get(id);
+  if(pc){
+    try{pc.close()}catch(e){}
+  }
+  peers.delete(id);
+  pendingIce.delete(id);
+  $("video-" + id)?.remove();
+}
+
+socket.on("participant-joined", async d => {
+  if(!meeting || !d?.socketId) return;
+
+  names.set(d.socketId, d.name || "Participant");
+
+  /*
+   * Only the host creates the initial offer.
+   * This prevents both sides from making competing offers.
+   */
+  if(meeting.isHost){
+    await makePeer(d.socketId, true);
+  }
+});
+
+socket.on("participant-left", d => {
+  if(d?.socketId) removePeer(d.socketId);
+});
+
+socket.on("meeting-ended", () => {
+  alert("Admin ended the meeting.");
+  cleanup(false);
+  show("dashboard");
+  refresh();
+});
+
+$("mic").onclick = () => {
+  if(!localStream) return;
+  const tracks = localStream.getAudioTracks();
+  if(!tracks.length) return;
+
+  const on = !tracks[0].enabled;
+  tracks.forEach(t => t.enabled = on);
+  $("mic").classList.toggle("off", !on);
+  $("mic").textContent = on ? "🎙️" : "🔇";
+};
+
+$("camera").onclick = () => {
+  if(!localStream) return;
+  const tracks = localStream.getVideoTracks();
+  if(!tracks.length) return;
+
+  const on = !tracks[0].enabled;
+  tracks.forEach(t => t.enabled = on);
+  $("camera").classList.toggle("off", !on);
+  $("camera").textContent = on ? "📷" : "🚫";
+};
+
+$("share").onclick = async () => {
+  try{
+    if(!navigator.mediaDevices?.getDisplayMedia){
+      return alert("Screen sharing is not supported in this browser.");
+    }
+
+    const display = await navigator.mediaDevices.getDisplayMedia({
+      video:true,
+      audio:false
+    });
+
+    const screenTrack = display.getVideoTracks()[0];
+
+    for(const pc of peers.values()){
+      const sender = pc.getSenders().find(s => s.track?.kind === "video");
+      if(sender) await sender.replaceTrack(screenTrack);
+    }
+
+    const localVideo = $("video-" + socket.id)?.querySelector("video");
+    if(localVideo) localVideo.srcObject = display;
+
+    screenTrack.onended = async () => {
+      const cameraTrack = localStream?.getVideoTracks()[0];
+      if(!cameraTrack) return;
+
+      for(const pc of peers.values()){
+        const sender = pc.getSenders().find(s => s.track?.kind === "video");
+        if(sender) await sender.replaceTrack(cameraTrack);
+      }
+
+      if(localVideo) localVideo.srcObject = localStream;
+    };
+  }catch(e){
+    console.warn("Screen sharing:", e);
+  }
+};
+
+$("chatForm").onsubmit = e => {
+  e.preventDefault();
+
+  const text = $("chatInput").value.trim();
+  if(!text || !meeting) return;
+
+  socket.emit("chat-message",{message:text});
+  $("chatInput").value = "";
+};
+
+socket.on("chat-message", d => {
+  const m = document.createElement("div");
+  m.className = "msg";
+
+  const b = document.createElement("b");
+  b.textContent = d.sender || "User";
+
+  const div = document.createElement("div");
+  div.textContent = d.message || "";
+
+  m.append(b,div);
+  $("messages").appendChild(m);
+  $("messages").scrollTop = $("messages").scrollHeight;
+});
+
+$("mobileChat").onclick = () => $("chat").classList.toggle("open");
+
+$("copyLink").onclick = async () => {
+  if(!meeting) return;
+
+  const url = location.origin + "/?meeting=" + encodeURIComponent(meeting.id);
+
+  try{
+    await navigator.clipboard.writeText(url);
+    alert("Meeting link copied.");
+  }catch(e){
+    prompt("Copy meeting link:",url);
+  }
+};
+
+$("leaveMeeting").onclick = () => {
+  socket.emit("leave-meeting");
+  cleanup(false);
+  show("dashboard");
+  refresh();
+};
+
+$("endMeeting").onclick = () => {
+  if(meeting?.isHost && confirm("End meeting for everyone?")){
+    socket.emit("end-meeting");
+  }
+};
+
+$("logout").onclick = () => {
+  if(meeting) socket.emit("leave-meeting");
+  cleanup(false);
+  user = null;
+  show("auth");
+};
+
+function cleanup(clearMeeting = true){
+  if(localStream){
+    localStream.getTracks().forEach(t => t.stop());
+  }
+
+  localStream = null;
+
+  for(const [id,pc] of peers){
+    try{pc.close()}catch(e){}
+  }
+
+  peers.clear();
+  names.clear();
+  pendingIce.clear();
+
+  $("videos").innerHTML = "";
+  $("messages").innerHTML = "";
+
+  if(clearMeeting) meeting = null;
+}
+
+/* Auto-fill meeting ID from a copied invite link. */
+const queryMeeting = new URLSearchParams(location.search).get("meeting");
+if(queryMeeting){
+  $("meetingIdInput").value = queryMeeting.toUpperCase();
+}
+
+/*
+ * Optional auto-join after participant login:
+ * the ID is preserved, but we still wait for the user to press Join.
+ */
+</script>
+</body>
 </html>
